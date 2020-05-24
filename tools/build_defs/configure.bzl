@@ -41,6 +41,7 @@ def _create_configure_script(configureParameters):
     define_install_prefix = "export INSTALL_PREFIX=\"" + _get_install_prefix(ctx) + "\"\n"
 
     configure = create_configure_script(
+        ctx,
         workspace_name = ctx.workspace_name,
         # as default, pass execution OS as target OS
         target_os = os_name(ctx),
