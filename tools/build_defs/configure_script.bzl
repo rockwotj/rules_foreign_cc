@@ -32,9 +32,10 @@ def create_configure_script(
         configure_path = "$$BUILD_TMPDIR$$/{}".format(configure_command)
     
     print(_get_configure_variables(tools, flags, user_vars))
-    configure_vars = {k: _join_flags_list(workspace_name, v) for (k, v) in _get_configure_variables(tools, flags, user_vars).items()}
+    configure_vars = {k: _join_flags_list(workspace_name, v).replace('$', '$$') for (k, v) in _get_configure_variables(tools, flags, user_vars).items()}
 
     expanded_options = [ctx.expand_make_variables("configure_options", opt, configure_vars) for opt in user_options]
+    print(expanded_options)
 
     script.append("{env_vars} \"{configure}\" --prefix=$$BUILD_TMPDIR$$/$$INSTALL_PREFIX$$ {user_options}".format(
         env_vars = env_vars_string,
